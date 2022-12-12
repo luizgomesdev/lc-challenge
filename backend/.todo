@@ -11,9 +11,11 @@ Entities:
         ☐ (Nice to have) imageUrl
         ✔ (Nice to have) latitude @done(22-12-11 17:30)
         ✔ (Nice to have) longitude @done(22-12-11 17:30)
+
     ✔ Transportations (e.g. bus, train, etc.) @done(22-12-11 17:34)
         ✔ id @done(22-12-11 17:34)
         ✔ name @done(22-12-11 17:34)
+
     ✔ Users @done(22-12-10 23:56)
         ✔ id @done(22-12-10 23:56)
         ✔ name @done(22-12-10 23:56)
@@ -21,13 +23,13 @@ Entities:
         ✔ password @done(22-12-10 23:56)
         ☐ type (e.g. user, programmer, leader, etc.)
         ☐ status (e.g. active, inactive, etc.)
+
     ✔ Customers @done(22-12-10 23:56)
         ✔ id @done(22-12-10 23:56)
         ✔ name @done(22-12-10 23:56)
         ☐ status (e.g. lead, customer, etc.)
 
-Features:
-    ✔ Create a quote @done(22-12-11 17:38)
+    ✔ Quotes @done(22-12-11 17:38)
         ✔ Id (uuid) @done(22-12-11 17:38)
         ✔ Order Number (squencial number) @done(22-12-11 17:38)
         ✔ From Departure @done(22-12-11 17:38)
@@ -39,6 +41,11 @@ Features:
         ✔ Name @done(22-12-11 17:38)
         ✔ Status (e.g. pending, won, lost, etc.) @done(22-12-11 17:38)
 
+
+Features:
+    ☐ Create Quotes
+    ☐ Get All Users
+    ☐ Get All Quotes
     ☐ Simple analytical report
         ☐ Total of new leads (by all time)
         ☐ Total of created quotes (by all time)
