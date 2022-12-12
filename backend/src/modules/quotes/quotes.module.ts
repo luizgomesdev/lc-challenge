@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { QuotesService } from './quotes.service';
-import { QuotesController } from './quotes.controller';
+import { QuotesService } from './infra/services/quotes.service';
+import { QuotesController } from './infra/controllers/quotes.controller';
 
 @Module({
   controllers: [QuotesController],
