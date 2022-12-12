@@ -1,0 +1,48 @@
+Minimal Quoting Functionality
+This is a simple quoting system that allows users to create quotes for customers.
+
+Entities:
+    ✔ Departures @done(22-12-11 17:34)
+        ✔ id @done(22-12-11 17:23)
+        ✔ name @done(22-12-11 17:23)
+        ✔ acronyms @done(22-12-11 17:23)
+        ☐ (Nice to have) title
+        ☐ (Nice to have) description
+        ☐ (Nice to have) imageUrl
+        ✔ (Nice to have) latitude @done(22-12-11 17:30)
+        ✔ (Nice to have) longitude @done(22-12-11 17:30)
+    ✔ Transportations (e.g. bus, train, etc.) @done(22-12-11 17:34)
+        ✔ id @done(22-12-11 17:34)
+        ✔ name @done(22-12-11 17:34)
+    ✔ Users @done(22-12-10 23:56)
+        ✔ id @done(22-12-10 23:56)
+        ✔ name @done(22-12-10 23:56)
+        ✔ email @done(22-12-10 23:56)
+        ✔ password @done(22-12-10 23:56)
+        ☐ type (e.g. user, programmer, leader, etc.)
+        ☐ status (e.g. active, inactive, etc.)
+    ✔ Customers @done(22-12-10 23:56)
+        ✔ id @done(22-12-10 23:56)
+        ✔ name @done(22-12-10 23:56)
+        ☐ status (e.g. lead, customer, etc.)
+
+Features:
+    ✔ Create a quote @done(22-12-11 17:38)
+        ✔ Id (uuid) @done(22-12-11 17:38)
+        ✔ Order Number (squencial number) @done(22-12-11 17:38)
+        ✔ From Departure @done(22-12-11 17:38)
+        ✔ To Departure @done(22-12-11 17:38)
+        ✔ Departure Date @done(22-12-11 17:38)
+        ✔ Departure Return Date @done(22-12-11 17:38)
+        ✔ People Quantity @done(22-12-11 17:38)
+        ✔ Transportation @done(22-12-11 17:38)
+        ✔ Name @done(22-12-11 17:38)
+        ✔ Status (e.g. pending, won, lost, etc.) @done(22-12-11 17:38)
+
+    ☐ Simple analytical report
+        ☐ Total of new leads (by all time)
+        ☐ Total of created quotes (by all time)
+        ☐ (Nice to have) Total of pending quotes (by all time)
+        ☐ (Nice to have) Total revenue (by all time)
+        ☐ (Nice to have) Total potential revenue (by all time)
+    

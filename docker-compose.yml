@@ -1,0 +1,104 @@
+version: "3.1"
+
+# POSTGRES_DB_HOST=postgres
+# POSTGRES_DB_PORT=5432
+# POSTGRES_DB_USER=postgres
+# POSTGRES_DB_NAME=challenge
+# POSTGRES_DB_PASSWORD=123456
+services:
+  backend:
+    container_name: nestjs-${NODE_ENV_COMMAND}
+    image: nestjs-${NODE_ENV_COMMAND}
+    environment:
+      - NODE_ENV:${NODE_ENV}
+      - NODE_ENV_COMMAND:${NODE_ENV_COMMAND}
+      - POSTGRES_DB_HOST=${POSTGRES_DB_HOST}
+      - POSTGRES_DB_PORT=${POSTGRES_DB_PORT}
+      - POSTGRES_DB_USER=${POSTGRES_DB_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB_PASSWORD=${POSTGRES_DB_PASSWORD}
+
+    build:
+      context: ./backend
+      target: "${NODE_ENV}"
+      dockerfile: Dockerfile
+    entrypoint: ["npm", "run", "start:${NODE_ENV_COMMAND}"]
+    # ports:
+    #   - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - challenge-network
+    volumes:
+      - ./backend:/usr/src/app
+      # - /usr/src/app/node_modules
+      - ./backend/node_modules:/usr/src/app/node_modules
+    restart: unless-stopped
+
+  frontend:
+    container_name: nextjs-${NODE_ENV_COMMAND}
+    image: nextjs-${NODE_ENV_COMMAND}
+    environment:
+      - NODE_ENV:${NODE_ENV}
+      - NODE_ENV_COMMAND:${NODE_ENV_COMMAND}
+    build:
+      context: ./frontend
+      target: ${NODE_ENV}
+      dockerfile: Dockerfile
+    entrypoint: ["npm", "run", "start:${NODE_ENV_COMMAND}"]
+    # ports:
+    #   - 3000:3000
+    depends_on:
+      - backend
+    networks:
+      - challenge-network
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+
+  postgres:
+    container_name: postgres-${NODE_ENV_COMMAND}
+    image: postgres:latest
+    networks:
+      - challenge-network
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+    ports:
+      - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
+    volumes:
+      - ./pgdata/data:/var/lib/postgresql/data
+
+  pgadmin:
+    links:
+      - postgres:postgres
+    container_name: pgadmin-${NODE_ENV_COMMAND}
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - ./pgdata/pgadmin:/root/.pgadmin
+    networks:
+      - challenge-network
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx-${NODE_ENV_COMMAND}
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    environment:
+      - NGINX_PORT=${NGINX_PORT}
+      - FRONTEND_PORT=${FRONTEND_PORT}
+      - BACKEND_PORT=${BACKEND_PORT}
+    ports:
+      - 80:${NGINX_PORT}
+    depends_on:
+      - backend
+      - postgres
+    networks:
+      - challenge-network
+
+networks:
+  challenge-network:
