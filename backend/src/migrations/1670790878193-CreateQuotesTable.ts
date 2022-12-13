@@ -7,6 +7,10 @@ import {
 
 export class CreateQuotesTable1670790878193 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      'CREATE SEQUENCE IF NOT EXISTS order_number_seq start 1 increment 1',
+    );
+
     const table = new Table({
       name: 'quotes',
       columns: [
@@ -20,15 +24,12 @@ export class CreateQuotesTable1670790878193 implements MigrationInterface {
         {
           name: 'status',
           type: 'enum',
-          default: 'PENDING',
           enum: ['PENDING', 'WON', 'LOST'],
         },
-
         {
           name: 'order_number',
           type: 'numeric',
-          generationStrategy: 'increment',
-          default: "nextval('order_number_seq')",
+          default: 'nextval(\'order_number_seq\')',
         },
         {
           name: 'from_departure_id',
@@ -51,6 +52,11 @@ export class CreateQuotesTable1670790878193 implements MigrationInterface {
           type: 'numeric',
         },
         {
+          name: 'price',
+          type: 'numeric',
+          isNullable: true,
+        },
+        {
           name: 'transportation_id',
           type: 'uuid',
         },
@@ -58,7 +64,6 @@ export class CreateQuotesTable1670790878193 implements MigrationInterface {
           name: 'customer_id',
           type: 'uuid',
         },
-
         {
           name: 'created_at',
           type: 'timestamp',
@@ -67,6 +72,7 @@ export class CreateQuotesTable1670790878193 implements MigrationInterface {
         {
           name: 'updated_at',
           type: 'timestamp',
+          default: 'now()',
         },
       ],
     });

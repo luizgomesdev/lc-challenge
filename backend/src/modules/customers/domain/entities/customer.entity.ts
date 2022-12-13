@@ -7,8 +7,12 @@ import {
 } from 'typeorm';
 import { CustomerStatusEnum } from '../enums/customer-status.enum';
 
-@Entity()
+@Entity('customers')
 export class Customer {
+  constructor(partial: Partial<Customer>) {
+    Object.assign(this, partial);
+  }
+
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

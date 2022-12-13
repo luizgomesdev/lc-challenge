@@ -26,6 +26,7 @@ export class CreateTransportationsTable1670790620959
         {
           name: 'updated_at',
           type: 'timestamp',
+          default: 'now()',
         },
       ],
     });

@@ -8,6 +8,8 @@ import { QuotesModule } from './modules/quotes/quotes.module';
 import { TransportationsModule } from './modules/transportations/transportations.module';
 import { UsersModule } from './modules/users/users.module';
 
+import { SharedModule } from './shared/shared.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,11 +20,13 @@ import { UsersModule } from './modules/users/users.module';
       inject: [ConfigService],
       useClass: TypeOrmConfigService,
     }),
+    SharedModule,
     UsersModule,
     CustomersModule,
     DeparturesModule,
     TransportationsModule,
     QuotesModule,
+    SharedModule,
   ],
   controllers: [],
   providers: [],

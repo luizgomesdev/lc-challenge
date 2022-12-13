@@ -36,6 +36,7 @@ export class CreateDeparturesTable1670727476658 implements MigrationInterface {
         {
           name: 'updated_at',
           type: 'timestamp',
+          default: 'now()',
         },
       ],
     });

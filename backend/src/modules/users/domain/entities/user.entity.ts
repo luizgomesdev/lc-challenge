@@ -10,7 +10,7 @@ import {
 
 import * as bcrypt from 'bcrypt';
 
-@Entity()
+@Entity('users')
 export class User {
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);

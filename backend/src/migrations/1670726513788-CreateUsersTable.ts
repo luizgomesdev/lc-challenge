@@ -2,8 +2,6 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateUsersTable1670726513788 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-
     const table = new Table({
       name: 'users',
       columns: [
@@ -35,10 +33,12 @@ export class CreateUsersTable1670726513788 implements MigrationInterface {
         {
           name: 'updated_at',
           type: 'timestamp',
+          default: 'now()',
         },
       ],
     });
 
+    await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
     await queryRunner.createTable(table);
   }
 

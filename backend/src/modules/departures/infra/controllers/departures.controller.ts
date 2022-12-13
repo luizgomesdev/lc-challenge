@@ -1,5 +1,7 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
-import { DEPARTURES_SERVICE_PROVIDER } from 'src/modules/customers/constants';
+import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { Like } from 'typeorm';
+import { DEPARTURES_SERVICE_PROVIDER } from '../../domain/constants';
+
 import { DeparturesService } from '../services/departures.service';
 
 @Controller('departures')
@@ -10,8 +12,27 @@ export class DeparturesController {
   ) {}
 
   @Get()
-  findAll(@Param('page') page: number, @Param('limit') limit: number) {
+  findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('search') search?: string,
+  ) {
+    console.info('page', page);
+    console.info('limit', limit);
+    console.info('limit', (page - 1) * limit);
+
     return this.departuresService.findAll({
+      ...(search && {
+        where: [
+          {
+            name: Like(`%${search}%`),
+          },
+          {
+            acronym: Like(`%${search}%`),
+          },
+        ],
+      }),
+
       take: limit,
       skip: (page - 1) * limit,
     });

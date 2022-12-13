@@ -14,5 +14,7 @@ import { TransportationsService } from './infra/services/transportations.service
       useClass: TransportationsService,
     },
   ],
+
+  exports: [TRANSPORTATIONS_SERVICE_PROVIDER],
 })
 export class TransportationsModule {}

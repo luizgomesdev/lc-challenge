@@ -5,6 +5,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -12,7 +14,7 @@ import {
 } from 'typeorm';
 import { QuoteStatusEnum } from '../enums/quote-status.enum';
 
-@Entity()
+@Entity('quotes')
 export class Quote {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -33,9 +35,11 @@ export class Quote {
   ordeNumber: number;
 
   @ManyToOne(() => Departure, (departure) => departure.id)
+  @JoinColumn({ name: 'from_departure_id' })
   fromDeparture: Departure;
 
   @ManyToOne(() => Departure, (departure) => departure.id)
+  @JoinColumn({ name: 'to_departure_id' })
   toDeparture: Departure;
 
   @Column({ name: 'departure_date' })
@@ -47,11 +51,16 @@ export class Quote {
   @Column({ type: 'numeric' })
   quantity: number;
 
+  @Column({ type: 'numeric', nullable: true })
+  price?: number;
+
   @ManyToOne(() => Transportation, (transportation) => transportation.id)
+  @JoinColumn({ name: 'transportation_id' })
   transportation: Transportation;
 
-  @ManyToMany(() => Customer, (customer) => customer.id)
-  customers: Customer[];
+  @ManyToOne(() => Customer, (customer) => customer.id, )
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

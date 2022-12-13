@@ -14,5 +14,7 @@ import { UsersService } from './infra/services/users.service';
       useClass: UsersService,
     },
   ],
+
+  exports: [USERS_SERVICE_PROVIDER],
 })
 export class UsersModule {}

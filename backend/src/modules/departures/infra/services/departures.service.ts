@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, Repository } from 'typeorm';
 import { Departure } from '../../domain/entities/departure.entity';
-import { IDepartureRepository } from '../../domain/interfaces/customers.repository';
+import { IDepartureRepository } from '../../domain/interfaces/departure.repository';
 
 @Injectable()
 export class DeparturesService implements IDepartureRepository {
