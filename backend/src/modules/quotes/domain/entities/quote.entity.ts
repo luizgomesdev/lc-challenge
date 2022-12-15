@@ -6,8 +6,6 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -32,13 +30,13 @@ export class Quote {
     unique: true,
     generated: 'increment',
   })
-  ordeNumber: number;
+  orderNumber: number;
 
-  @ManyToOne(() => Departure, (departure) => departure.id)
+  @ManyToOne(() => Departure, (departure) => departure.id, { eager: true })
   @JoinColumn({ name: 'from_departure_id' })
   fromDeparture: Departure;
 
-  @ManyToOne(() => Departure, (departure) => departure.id)
+  @ManyToOne(() => Departure, (departure) => departure.id, { eager: true })
   @JoinColumn({ name: 'to_departure_id' })
   toDeparture: Departure;
 
@@ -54,11 +52,13 @@ export class Quote {
   @Column({ type: 'numeric', nullable: true })
   price?: number;
 
-  @ManyToOne(() => Transportation, (transportation) => transportation.id)
+  @ManyToOne(() => Transportation, (transportation) => transportation.id, {
+    eager: true,
+  })
   @JoinColumn({ name: 'transportation_id' })
   transportation: Transportation;
 
-  @ManyToOne(() => Customer, (customer) => customer.id, )
+  @ManyToOne(() => Customer, (customer) => customer.id, { eager: true })
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 

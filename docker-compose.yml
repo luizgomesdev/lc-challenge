@@ -10,13 +10,13 @@ services:
     container_name: nestjs-${NODE_ENV_COMMAND}
     image: nestjs-${NODE_ENV_COMMAND}
     environment:
-      - NODE_ENV:${NODE_ENV}
-      - NODE_ENV_COMMAND:${NODE_ENV_COMMAND}
-      - POSTGRES_DB_HOST=${POSTGRES_DB_HOST}
-      - POSTGRES_DB_PORT=${POSTGRES_DB_PORT}
-      - POSTGRES_DB_USER=${POSTGRES_DB_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_DB_PASSWORD=${POSTGRES_DB_PASSWORD}
+      NODE_ENV: ${NODE_ENV}
+      NODE_ENV_COMMAND: ${NODE_ENV_COMMAND}
+      POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
+      POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
+      POSTGRES_DB_USER: ${POSTGRES_DB_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
 
     build:
       context: ./backend
@@ -39,8 +39,10 @@ services:
     container_name: nextjs-${NODE_ENV_COMMAND}
     image: nextjs-${NODE_ENV_COMMAND}
     environment:
-      - NODE_ENV:${NODE_ENV}
-      - NODE_ENV_COMMAND:${NODE_ENV_COMMAND}
+      NODE_ENV: ${NODE_ENV}
+      NODE_ENV_COMMAND: ${NODE_ENV_COMMAND}
+      BACKEND_INTERNAL_URL: ${BACKEND_INTERNAL_URL}
+      NEXT_PUBLIC_BACKEND_URL: ${BACKEND_URL}
     build:
       context: ./frontend
       target: ${NODE_ENV}
@@ -54,7 +56,7 @@ services:
       - challenge-network
     volumes:
       - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./frontend/node_modules:/usr/src/app/node_modules
     restart: unless-stopped
 
   postgres:

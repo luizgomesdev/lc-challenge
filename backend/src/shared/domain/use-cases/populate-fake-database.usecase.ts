@@ -64,14 +64,15 @@ export class PopulateFakeDatabase {
 
     const fakeCustomersCreated = await Promise.all(fakeCustomersPromises);
 
-    const fakeDepartures: Partial<Departure>[] = DeparturesJSON.map(
-      (departure) => ({
-        name: departure.name,
-        acronym: departure.iata_code,
-        latitude: departure._geoloc.lat,
-        longitude: departure._geoloc.lng,
-      }),
-    );
+    const fakeDepartures: Partial<Departure>[] = DeparturesJSON.slice(
+      0,
+      100,
+    ).map((departure) => ({
+      name: departure.name,
+      acronym: departure.iata_code,
+      latitude: departure._geoloc.lat,
+      longitude: departure._geoloc.lng,
+    }));
 
     const fakeDeparturesPromises = fakeDepartures.map((departure) =>
       this.departuresService.create(departure),

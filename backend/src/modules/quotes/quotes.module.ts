@@ -1,3 +1,4 @@
+import { CustomersModule } from 'src/modules/customers/customers.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { QUOTES_SERVICE_PROVIDER } from './domain/constants';
@@ -6,7 +7,7 @@ import { QuotesController } from './infra/controllers/quotes.controller';
 import { QuotesService } from './infra/services/quotes.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Quote])],
+  imports: [TypeOrmModule.forFeature([Quote]), CustomersModule],
   controllers: [QuotesController],
   providers: [
     {

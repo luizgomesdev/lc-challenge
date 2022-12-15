@@ -1,4 +1,5 @@
 import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { ApiPropertyOptional, ApiQuery } from '@nestjs/swagger';
 import { Like } from 'typeorm';
 import { DEPARTURES_SERVICE_PROVIDER } from '../../domain/constants';
 
@@ -11,16 +12,30 @@ export class DeparturesController {
     private readonly departuresService: DeparturesService,
   ) {}
 
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Limit of items per page',
+  })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    type: String,
+    description: 'Search by name or acronym',
+  })
   @Get()
   findAll(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
+    @Query('page') page = 1,
+    @Query('limit') limit = 10,
     @Query('search') search?: string,
   ) {
-    console.info('page', page);
-    console.info('limit', limit);
-    console.info('limit', (page - 1) * limit);
-
     return this.departuresService.findAll({
       ...(search && {
         where: [

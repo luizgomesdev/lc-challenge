@@ -24,12 +24,13 @@ export class CreateQuotesTable1670790878193 implements MigrationInterface {
         {
           name: 'status',
           type: 'enum',
+          default: "'PENDING'",
           enum: ['PENDING', 'WON', 'LOST'],
         },
         {
           name: 'order_number',
           type: 'numeric',
-          default: 'nextval(\'order_number_seq\')',
+          default: "nextval('order_number_seq')",
         },
         {
           name: 'from_departure_id',
