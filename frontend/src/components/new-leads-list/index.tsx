@@ -27,7 +27,7 @@ const NewLeadsList = () => {
                 <Heading color="gray.600" size="sm">
                   {lead.name}
                 </Heading>
-                <Text color="gray.500"> {format(new Date(), "HH:mm a")} </Text>
+                <Text color="gray.500"> 00:00 PM </Text>
               </HStack>
               <Text color="gray.500"> Hey, I am want to place my package </Text>
             </VStack>

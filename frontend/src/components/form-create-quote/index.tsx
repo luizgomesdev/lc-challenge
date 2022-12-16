@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { Select } from "chakra-react-select";
 import { debounce } from "lodash";
-import { useState } from "react";
+import { useState, useId } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useGetDeparturesQuery } from "../../services/departures";
 import { useCreateQuoteMutation } from "../../services/quotes";
@@ -81,6 +81,10 @@ const FormCreateQuote = () => {
     }
   };
 
+  const instanceId1 = useId();
+  const instanceId2 = useId();
+  const instanceId3 = useId();
+
   return (
     <VStack as={"form"} spacing={4} onSubmit={handleSubmit(onSubmit)}>
       <HStack w="full" spacing={6}>
@@ -97,6 +101,7 @@ const FormCreateQuote = () => {
                 From
               </FormLabel>
               <Select
+                instanceId={instanceId1}
                 variant="flushed"
                 placeholder="Select option"
                 focusBorderColor="gray.500"
@@ -133,6 +138,7 @@ const FormCreateQuote = () => {
                 Destination
               </FormLabel>
               <Select
+                instanceId={instanceId2}
                 variant="flushed"
                 focusBorderColor="gray.500"
                 placeholder="Select option"
@@ -228,6 +234,7 @@ const FormCreateQuote = () => {
                 Transport
               </FormLabel>
               <Select
+                instanceId={instanceId3}
                 variant="flushed"
                 focusBorderColor="gray.500"
                 placeholder="Select transport"
